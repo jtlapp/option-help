@@ -1,5 +1,5 @@
 /******************************************************************************
-Functions for managing the option values that minimist returns.
+Functions for managing the command line arguments and minimist options.
 ******************************************************************************/
 
 /**
@@ -13,25 +13,25 @@ var _ = require('lodash');
 /**
  * Turns boolean arguments off when suffixed by `-`. Minimist provides a `--no-<arg>` option for setting the value of `<arg>` to false. When an argument defaults to true (maybe because of an environment variable) and the user may need to frequently set it to false, the minimist way gets a bit cumbersome.
  *
- * @param options Options output of minimist, which the function modifies.
- * @param minimistConfig The configuration options provided to minimist to produces the given options. The function uses this to identify the boolean arguments and their aliases.
+ * @param args Options output of minimist, which the function modifies.
+ * @param configOptions The configuration options provided to minimist to produces the given args. The function uses this to identify the boolean arguments and their aliases.
  */
 
-exports.applyBooleanOffSwitch = function (options, minimistConfig) {
-    if (_.isUndefined(minimistConfig.boolean))
+exports.applyBooleanOffSwitch = function (args, configOptions) {
+    if (_.isUndefined(configOptions.boolean))
         return;
-    var aliases = minimistConfig.alias;
-    minimistConfig.boolean.forEach(function (letter) {
-        if (options[letter] === '-') {
-            options[letter] = false;
+    var aliases = configOptions.alias;
+    configOptions.boolean.forEach(function (letter) {
+        if (args[letter] === '-') {
+            args[letter] = false;
             if (aliases && !_.isUndefined(aliases[letter]))
-                options[aliases[letter]] = false;
+                args[aliases[letter]] = false;
         }
     });
 };
 
 /**
- * Generates a string that shows the help information for a group of options. The option templates are all left-aligned, the option descriptions are all left aligned to the right of the longest option template, and the option descriptions wrap at word boundaries at the given right margin.
+ * Generates a string that shows the help information for a group of command line options. The option templates are all left-aligned, the option descriptions are all left aligned to the right of the longest option template, and the option descriptions wrap at word boundaries at the given right margin.
  *
  * @param group An array of array pairs `[optionTemplate, optionDescription]`. The optionDescription can have multiple lines, including blank lines.
  * @param delim The delimiter to place between the option template and the start of its description. Use space characters to space the two apart.
@@ -94,18 +94,18 @@ exports.getFlag = function (flags, flagLetter) {
 };
 
 /**
- * Minimist collects multiple assignments of the same option into an array of all of the assigned values. This feature is useful for allowing the command to support a default set of options, such as via an environment variable. Applying the default options before the actual options makes the last value of the array the intended value of the option. This function returns the last value of all array options except for those for which multiple values are allowed.
+ * Minimist collects multiple assignments of the same option into an array of all of the values assigned to that option. This feature is useful for allowing the command to support a default set of option values, such as via an environment variable. Applying the default option values before the actually provided options makes the last value of the array the intended value of the option. This function returns the last value of all array arguments except for those for which the caller specifies that multiple values are allowed.
  *
- * @param options Options output of minimist, which the function modifies.
- * @param multiplesAllowed Array of options that collect all values instead of using only the last value supplied.
+ * @param args Arguments output by minimist, which the function modifies by reducing arrays other than multiplesAllowed to just the last array element.
+ * @param multiplesAllowed Array of the names of options that collect all values instead of using only the last value supplied.
  */
 
-exports.keepLastOfDuplicates = function (options, multiplesAllowed) {
+exports.keepLastOfDuplicates = function (args, multiplesAllowed) {
     multiplesAllowed.push('_');
-    Object.keys(options).forEach(function (key) {
-        var option = options[key];
-        if (_.isArray(option) && multiplesAllowed.indexOf(key) < 0)
-            options[key] = option[option.length - 1];
+    Object.keys(args).forEach(function (key) {
+        var arg = args[key];
+        if (_.isArray(arg) && multiplesAllowed.indexOf(key) < 0)
+            arg[key] = arg[arg.length - 1];
     });
 };
 

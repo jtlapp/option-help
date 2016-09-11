@@ -29,7 +29,7 @@ This reference assumes the module is loaded in the variable `optionhelp`.
 <a name="module_optionhelp.applyBooleanOffSwitch"></a>
 
 ### *optionhelp*.**applyBooleanOffSwitch**(options, minimistConfig)
-Turns boolean arguments off when suffixed by '-'. Minimist provides a "--no-<arg>" option for setting the value of <arg> to false. When an argument defaults to true (maybe because of an environment variable) and the user may need to frequently set it to false, the minimist way gets a bit cumbersome.
+Turns boolean arguments off when suffixed by `-`. Minimist provides a `--no-<arg>` option for setting the value of `<arg>` to false. When an argument defaults to true (maybe because of an environment variable) and the user may need to frequently set it to false, the minimist way gets a bit cumbersome.
 
 
 | Param | Description |
@@ -42,11 +42,11 @@ Turns boolean arguments off when suffixed by '-'. Minimist provides a "--no-<arg
 ### *optionhelp*.**generateHelpGroup**(group, delim, leftMargin, rightMargin, spaceEntries)
 Generates a string that shows the help information for a group of options. The option templates are all left-aligned, the option descriptions are all left aligned to the right of the longest option template, and the option descriptions wrap at word boundaries at the given right margin.
 
-**Returns**: a string compilation of all of group's options, ending with "\n"  
+**Returns**: a string compilation of all of group's options, ending with `\n`  
 
 | Param | Description |
 | --- | --- |
-| group | An array of array pairs [optionTemplate, optionDescription]. The optionDescription can have multiple lines, including blank lines. |
+| group | An array of array pairs `[optionTemplate, optionDescription]`. The optionDescription can have multiple lines, including blank lines. |
 | delim | The delimiter to place between the option template and the start of its description. Use space characters to space the two apart. |
 | leftMargin | The margin at which to list the options templates. |
 | rightMargin | The margin at which to wrap the option descriptions. Lines are wrapped at spaces. |
@@ -96,7 +96,7 @@ Wraps the provided line at the given maximum width and return an array of the wr
 
 | Param | Description |
 | --- | --- |
-| line | Line to wrap, without trailing "\n" |
+| line | Line to wrap, without trailing `\n` |
 | maxWidth | Column at which to wrap the line. This width includes the margin that leftMarginSize specifies. |
 | leftMarginSize | Number of spaces that are to precede each wrapped line. (defaults to 0) |
 

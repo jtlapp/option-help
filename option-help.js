@@ -11,7 +11,7 @@ This reference assumes the module is loaded in the variable `optionhelp`.
 var _ = require('lodash');
 
 /**
- * Turns boolean arguments off when suffixed by '-'. Minimist provides a "--no-<arg>" option for setting the value of <arg> to false. When an argument defaults to true (maybe because of an environment variable) and the user may need to frequently set it to false, the minimist way gets a bit cumbersome.
+ * Turns boolean arguments off when suffixed by `-`. Minimist provides a `--no-<arg>` option for setting the value of `<arg>` to false. When an argument defaults to true (maybe because of an environment variable) and the user may need to frequently set it to false, the minimist way gets a bit cumbersome.
  *
  * @param options Options output of minimist, which the function modifies.
  * @param minimistConfig The configuration options provided to minimist to produces the given options. The function uses this to identify the boolean arguments and their aliases.
@@ -33,12 +33,12 @@ exports.applyBooleanOffSwitch = function (options, minimistConfig) {
 /**
  * Generates a string that shows the help information for a group of options. The option templates are all left-aligned, the option descriptions are all left aligned to the right of the longest option template, and the option descriptions wrap at word boundaries at the given right margin.
  *
- * @param group An array of array pairs [optionTemplate, optionDescription]. The optionDescription can have multiple lines, including blank lines.
+ * @param group An array of array pairs `[optionTemplate, optionDescription]`. The optionDescription can have multiple lines, including blank lines.
  * @param delim The delimiter to place between the option template and the start of its description. Use space characters to space the two apart.
  * @param leftMargin The margin at which to list the options templates.
  * @param rightMargin The margin at which to wrap the option descriptions. Lines are wrapped at spaces.
  * @param spaceEntries Whether to put a blank line between consecutive entries.
- * @returns a string compilation of all of group's options, ending with "\n"
+ * @returns a string compilation of all of group's options, ending with `\n`
  */
 
 exports.generateHelpGroup = function (
@@ -133,7 +133,7 @@ exports.lastOfMutuallyExclusive = function (argv, alternatives) {
 /**
  * Wraps the provided line at the given maximum width and return an array of the wrapped lines. Lines are wrapped the space boundary between words. Useful for generating help output.
  *
- * @param line Line to wrap, without trailing "\n"
+ * @param line Line to wrap, without trailing `\n`
  * @param maxWidth Column at which to wrap the line. This width includes the margin that leftMarginSize specifies.
  * @param leftMarginSize Number of spaces that are to precede each wrapped line. (defaults to 0)
  * @returns an array of the lines that result from wrapping line at maxWidth

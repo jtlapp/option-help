@@ -1,0 +1,37 @@
+{
+  "name": "option-help",
+  "version": "0.5.0",
+  "description": "some functions that help manage command line options",
+  "main": "option-help.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "jsdoc2md --plugin dmd-clear --template templates/README.hbs --src option-help.js > README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtlapp/option-help.git"
+  },
+  "keywords": [
+    "command",
+    "options",
+    "minimist",
+    "help",
+    "library"
+  ],
+  "author": {
+    "name": "Joe Lapp",
+    "email": "arachnojoe@gmail.com",
+    "url": "http://josephtlapp.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jtlapp/option-help/issues"
+  },
+  "homepage": "https://github.com/jtlapp/option-help#readme",
+  "dependencies": {
+    "lodash": "^4.15.0"
+  },
+  "devDependencies": {
+    "dmd-clear": "^0.1.0"
+  }
+}

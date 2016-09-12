@@ -9,40 +9,37 @@ This is a library of utility functions that assist with making command line exec
 This reference assumes the module is loaded in the variable `optionhelp`.
 
 
-* [**optionhelp**](#module_optionhelp)
+* [optionhelp](#module_optionhelp)
 
-    * [.**applyBooleanOffSwitch**(options, minimistConfig)](#module_optionhelp.applyBooleanOffSwitch)
+    * [.applyBooleanOffSwitch(args, configOptions)](#module_optionhelp.applyBooleanOffSwitch)
 
-    * [.**generateHelpGroup**(group, delim, leftMargin, rightMargin, spaceEntries)](#module_optionhelp.generateHelpGroup)
+    * [.generateHelpGroup(group, delim, leftMargin, rightMargin, spaceEntries)](#module_optionhelp.generateHelpGroup)
 
-    * [.**getFlag**(flags, flagLetter)](#module_optionhelp.getFlag)
+    * [.getFlag(flags, flagLetter)](#module_optionhelp.getFlag)
 
-    * [.**keepLastOfDuplicates**(options, multiplesAllowed)](#module_optionhelp.keepLastOfDuplicates)
+    * [.keepLastOfDuplicates(args, multiplesAllowed)](#module_optionhelp.keepLastOfDuplicates)
 
-    * [.**lastOfMutuallyExclusive**(argv, alternatives)](#module_optionhelp.lastOfMutuallyExclusive)
+    * [.lastOfMutuallyExclusive(argv, alternatives)](#module_optionhelp.lastOfMutuallyExclusive)
 
-    * [.**wrapLine**(line, maxWidth, leftMarginSize)](#module_optionhelp.wrapLine)
+    * [.wrapLine(line, maxWidth, leftMarginSize)](#module_optionhelp.wrapLine)
 
-    * [.**wrapText**(text, maxWidth, autoIndent)](#module_optionhelp.wrapText)
+    * [.wrapText(text, maxWidth, autoIndent)](#module_optionhelp.wrapText)
 
 
 <a name="module_optionhelp.applyBooleanOffSwitch"></a>
 
-### *optionhelp*.**applyBooleanOffSwitch**(options, minimistConfig)
-Turns boolean arguments off when suffixed by `-`. Minimist provides a `--no-<arg>` option for setting the value of `<arg>` to false. When an argument defaults to true (maybe because of an environment variable) and the user may need to frequently set it to false, the minimist way gets a bit cumbersome.
-
+### *optionhelp*.applyBooleanOffSwitch(args, configOptions)
 
 | Param | Description |
 | --- | --- |
-| options | Options output of minimist, which the function modifies. |
-| minimistConfig | The configuration options provided to minimist to produces the given options. The function uses this to identify the boolean arguments and their aliases. |
+| args | Options output of minimist, which the function modifies. |
+| configOptions | The configuration options provided to minimist to produces the given args. The function uses this to identify the boolean arguments and their aliases. |
+
+Turns boolean arguments off when suffixed by `-`. Minimist provides a `--no-<arg>` option for setting the value of `<arg>` to false. When an argument defaults to true (maybe because of an environment variable) and the user may need to frequently set it to false, the minimist way gets a bit cumbersome.
 
 <a name="module_optionhelp.generateHelpGroup"></a>
 
-### *optionhelp*.**generateHelpGroup**(group, delim, leftMargin, rightMargin, spaceEntries)
-Generates a string that shows the help information for a group of options. The option templates are all left-aligned, the option descriptions are all left aligned to the right of the longest option template, and the option descriptions wrap at word boundaries at the given right margin.
-
-**Returns**: a string compilation of all of group's options, ending with `\n`  
+### *optionhelp*.generateHelpGroup(group, delim, leftMargin, rightMargin, spaceEntries)
 
 | Param | Description |
 | --- | --- |
@@ -52,47 +49,47 @@ Generates a string that shows the help information for a group of options. The o
 | rightMargin | The margin at which to wrap the option descriptions. Lines are wrapped at spaces. |
 | spaceEntries | Whether to put a blank line between consecutive entries. |
 
+Generates a string that shows the help information for a group of command line options. The option templates are all left-aligned, the option descriptions are all left aligned to the right of the longest option template, and the option descriptions wrap at word boundaries at the given right margin.
+
+**Returns**: a string compilation of all of group's options, ending with `\n`  
 <a name="module_optionhelp.getFlag"></a>
 
-### *optionhelp*.**getFlag**(flags, flagLetter)
-Returns the boolean value of a flag according to a flag list, where flags are case-sensitive letters.
-
-**Returns**: true if the letter is found in the flag list; false otherwise  
+### *optionhelp*.getFlag(flags, flagLetter)
 
 | Param | Description |
 | --- | --- |
 | flags | String of letters for flags that are true |
 | flagLetter | Letter of flag to look for in flags |
 
+Returns the boolean value of a flag according to a flag list, where flags are case-sensitive letters.
+
+**Returns**: true if the letter is found in the flag list; false otherwise  
 <a name="module_optionhelp.keepLastOfDuplicates"></a>
 
-### *optionhelp*.**keepLastOfDuplicates**(options, multiplesAllowed)
-Minimist collects multiple assignments of the same option into an array of all of the assigned values. This feature is useful for allowing the command to support a default set of options, such as via an environment variable. Applying the default options before the actual options makes the last value of the array the intended value of the option. This function returns the last value of all array options except for those for which multiple values are allowed.
-
+### *optionhelp*.keepLastOfDuplicates(args, multiplesAllowed)
 
 | Param | Description |
 | --- | --- |
-| options | Options output of minimist, which the function modifies. |
-| multiplesAllowed | Array of options that collect all values instead of using only the last value supplied. |
+| args | Arguments output by minimist, which the function modifies by reducing arrays other than multiplesAllowed to just the last array element. |
+| multiplesAllowed | Array of the names of options that collect all values instead of using only the last value supplied. |
+
+Minimist collects multiple assignments of the same option into an array of all of the values assigned to that option. This feature is useful for allowing the command to support a default set of option values, such as via an environment variable. Applying the default option values before the actually provided options makes the last value of the array the intended value of the option. This function returns the last value of all array arguments except for those for which the caller specifies that multiple values are allowed.
 
 <a name="module_optionhelp.lastOfMutuallyExclusive"></a>
 
-### *optionhelp*.**lastOfMutuallyExclusive**(argv, alternatives)
-Returns the name of the last option to appear in the argument list from a set of mutually exclusive alternatives, or null if none of the alternatives appears in the argument list.
-
-**Returns**: name of last mutually exclusive option, or null if none provided.  
+### *optionhelp*.lastOfMutuallyExclusive(argv, alternatives)
 
 | Param | Description |
 | --- | --- |
 | argv | Array of arguments input to minimist. |
 | alternatives | Array of names of mutually exclusive options. |
 
+Returns the name of the last option to appear in the argument list from a set of mutually exclusive alternatives, or null if none of the alternatives appears in the argument list.
+
+**Returns**: name of last mutually exclusive option, or null if none provided.  
 <a name="module_optionhelp.wrapLine"></a>
 
-### *optionhelp*.**wrapLine**(line, maxWidth, leftMarginSize)
-Wraps the provided line at the given maximum width and return an array of the wrapped lines. Lines are wrapped the space boundary between words. Useful for generating help output.
-
-**Returns**: an array of the lines that result from wrapping line at maxWidth  
+### *optionhelp*.wrapLine(line, maxWidth, leftMarginSize)
 
 | Param | Description |
 | --- | --- |
@@ -100,12 +97,12 @@ Wraps the provided line at the given maximum width and return an array of the wr
 | maxWidth | Column at which to wrap the line. This width includes the margin that leftMarginSize specifies. |
 | leftMarginSize | Number of spaces that are to precede each wrapped line. (defaults to 0) |
 
+Wraps the provided line at the given maximum width and return an array of the wrapped lines. Lines are wrapped the space boundary between words. Useful for generating help output.
+
+**Returns**: an array of the lines that result from wrapping line at maxWidth  
 <a name="module_optionhelp.wrapText"></a>
 
-### *optionhelp*.**wrapText**(text, maxWidth, autoIndent)
-Wraps the lines of the provided text at the given maximum width and returns the wrapped text as a string. Lines are wrapped on the space boundary between words. The function optionally automatically indents each wrapped line to the indentation at which the line begins. Useful for wrapping help output.
-
-**Returns**: a string containing the text with all lines wrapped  
+### *optionhelp*.wrapText(text, maxWidth, autoIndent)
 
 | Param | Description |
 | --- | --- |
@@ -113,6 +110,9 @@ Wraps the lines of the provided text at the given maximum width and returns the 
 | maxWidth | Column at which to wrap the lines. This width includes the margin that leftMarginSize specifies. |
 | autoIndent | Whether to automatically indent wrapped lines to the indentation at which they begin. |
 
+Wraps the lines of the provided text at the given maximum width and returns the wrapped text as a string. Lines are wrapped on the space boundary between words. The function optionally automatically indents each wrapped line to the indentation at which the line begins. Useful for wrapping help output.
+
+**Returns**: a string containing the text with all lines wrapped  
 
 ## LICENSE
 

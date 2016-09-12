@@ -32,6 +32,6 @@
     "lodash": "^4.15.0"
   },
   "devDependencies": {
-    "dmd-clear": "^0.1.0"
+    "dmd-clear": "^0.1.2"
   }
 }

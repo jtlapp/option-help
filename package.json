@@ -3,6 +3,7 @@
   "version": "0.5.3",
   "description": "some functions that help manage command line options",
   "main": "option-help.js",
+  "types": "option-help.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "jsdoc2md --plugin dmd-clear --template templates/README.hbs --src option-help.js > README.md"
@@ -29,6 +30,7 @@
   },
   "homepage": "https://github.com/jtlapp/option-help#readme",
   "dependencies": {
+    "@types/minimist": "^1.2.0",
     "lodash": "^4.15.0"
   },
   "devDependencies": {

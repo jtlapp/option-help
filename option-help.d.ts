@@ -38,5 +38,5 @@ export function wrapLine(
 export function wrapText(
     text: string,
     maxWidth: number,
-    autoIndent: boolean
+    autoIndentDelta?: boolean|number
 ): string;

@@ -1,6 +1,6 @@
 {
   "name": "option-help",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "some functions that help manage command line options",
   "main": "option-help.js",
   "types": "option-help.d.ts",

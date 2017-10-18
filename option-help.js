@@ -131,7 +131,7 @@ exports.lastOfMutuallyExclusive = function (argv, alternatives) {
 };
 
 /**
- * Wraps the provided line at the given maximum width and return an array of the wrapped lines. Lines are wrapped the space boundary between words. Useful for generating help output.
+ * Wraps the provided line at the given maximum width and return an array of the wrapped lines. Lines are wrapped at the space boundary between words. Useful for generating help output.
  *
  * @param line Line to wrap, without trailing `\n`
  * @param maxWidth Column at which to wrap the line. This width includes the margin that leftMarginSize specifies.
@@ -172,21 +172,29 @@ exports.wrapLine = function (line, maxWidth, leftMarginSize) {
  *
  * @param text Text string of one or more lines to wrap.
  * @param maxWidth Column at which to wrap the lines. This width includes the margin that leftMarginSize specifies.
- * @param autoIndent Whether to automatically indent wrapped lines to the indentation at which they begin.
+ * @param autoIndentDelta Whether to automatically indent wrapped lines. Boolean or integer, but optional. When boolean, indicates whether to wrap to the prior line's indentation column. Defaults to false, which starts wrapped lines in the first column. When an integer, automatic indentation is enabled to a the column given by the prior line plus this integer. For example, a delta of 4 further indents wraps lines by 4 spaces. The delta may be negative to unindent.
  * @returns a string containing the text with all lines wrapped
  */
  
-exports.wrapText = function (text, maxWidth, autoIndent) {
+exports.wrapText = function (text, maxWidth, autoIndentDelta) {
     var lines = text.split("\n");
     var wrappedText = '';
     var delim = '';
     var leftMarginSize;
     var wrappedLines;
+    var autoIndenting = (autoIndentDelta || autoIndentDelta === 0);
     
+    if (autoIndentDelta === true)
+        autoIndentDelta = 0;
     lines.forEach(function (line) {
-        leftMarginSize = (autoIndent ? line.match(/^ */)[0].length : 0);
+        leftMarginSize = (autoIndenting ? line.match(/^ */)[0].length : 0);
         if (leftMarginSize > 0)
             line = line.substr(leftMarginSize);
+        if (autoIndenting) {
+            leftMarginSize += autoIndentDelta;
+            if (leftMarginSize < 0)
+                leftMarginSize = 0;
+        }
         wrappedLines = exports.wrapLine(line, maxWidth, leftMarginSize);
         wrappedLines.forEach(function (wrappedLine) {
             wrappedText += delim + wrappedLine;

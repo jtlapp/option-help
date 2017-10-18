@@ -149,7 +149,7 @@ exports.wrapLine = function (line, maxWidth, leftMarginSize) {
     
     // not terribly efficient, but does the job
     var words = line.split(' ');
-    var run = leftMargin;
+    var run = '';
     var delim = '';
     words.forEach(function (word) {
         if (run.length + delim.length + word.length <= maxWidth) {
@@ -188,8 +188,6 @@ exports.wrapText = function (text, maxWidth, autoIndentDelta) {
         autoIndentDelta = 0;
     lines.forEach(function (line) {
         leftMarginSize = (autoIndenting ? line.match(/^ */)[0].length : 0);
-        if (leftMarginSize > 0)
-            line = line.substr(leftMarginSize);
         if (autoIndenting) {
             leftMarginSize += autoIndentDelta;
             if (leftMarginSize < 0)
